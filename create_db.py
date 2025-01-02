@@ -22,7 +22,6 @@ users = [
 cursor_obj.executemany("INSERT INTO USERS (User_Name, Password) VALUES (?, ?)", users)
 print("Initial records inserted.")
 
-# Commit the changes and close the connection
 connection_obj.commit()
 
 connection_obj.close()
