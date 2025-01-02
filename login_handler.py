@@ -21,16 +21,16 @@ def login():
         result = cursor_obj.fetchone()
 
         if result:
-            print(f"Welcome, {user_name}! Login successful.")
+            print(f"\nLogin successful! Welcome, {user_name} (Role: {result[3]})!")
+            connection_obj.close()
+            return True, result[3]
+
         else:
             print("Invalid username or password. Please try again.")
+
+        connection_obj.close()
 
     except sqlite3.Error as e:
         print("Database error:", e)
     except Exception as e:
         print("An unexpected error occurred:", e)
-    finally:
-        if connection_obj:
-            connection_obj.close()
-
-

@@ -9,19 +9,21 @@ def create_users_db():
     table = """ CREATE TABLE USERS (
                 User_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 User_Name CHAR(50) NOT NULL,
-                Password CHAR(50) NOT NULL
+                Password CHAR(50) NOT NULL,
+                Role CHAR(25) NOT NULL
               ); """
 
     cursor_obj.execute(table)
     print("\"users\" table is created/overridden'")
 
     users = [
-        ("Admin", "Admin Password"),
-        ("Librarian", "Library Password"),
-        ("Reader", "Reader Password"),
+        ("Admin", "Admin Password", "Admin"),
+        ("Librarian", "Library Password", "Librarian"),
+        ("Reader", "Reader Password", "Reader"),
+        ("csana", "123", "Admin")
     ]
 
-    cursor_obj.executemany("INSERT INTO USERS (User_Name, Password) VALUES (?, ?)", users)
+    cursor_obj.executemany("INSERT INTO USERS (User_Name, Password, Role) VALUES (?, ?, ?)", users)
     print("Initial records inserted.")
 
     connection_obj.commit()
