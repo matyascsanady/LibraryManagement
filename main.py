@@ -1,8 +1,15 @@
+import os
 from login_handler import login
 from modify_db import create_new_user, delete_user
+import create_db
 
 
 def main():
+
+    if not os.path.exists("db/library.db"):
+        print("Database not found. Creating the database...")
+        create_db.main()
+        print("Database created successfully!")
 
     while True:
         result, role = login()
