@@ -1,20 +1,31 @@
 import sqlite3
 
-def create_users_db():
+def create_connection(db_name="db/library.db"):
+    """Creates a connection to the SQLite database."""
+    return sqlite3.connect(db_name)
 
-    connection_obj = sqlite3.connect("db/users.db")
-    cursor_obj = connection_obj.cursor()
-    cursor_obj.execute("DROP TABLE IF EXISTS USERS")
 
-    table = """ CREATE TABLE USERS (
-                User_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                User_Name CHAR(50) NOT NULL,
-                Password CHAR(50) NOT NULL,
-                Role CHAR(25) NOT NULL
-              ); """
+def execute_query(connection, query, data=None):
+    """Executes a single query with optional data."""
+    cursor = connection.cursor()
+    if data:
+        cursor.executemany(query, data)
+    else:
+        cursor.execute(query)
+    connection.commit()
 
-    cursor_obj.execute(table)
-    print("\"users\" table is created/overridden'")
+
+def create_users_table(connection):
+    """Creates the USERS table."""
+    table_query = """
+        CREATE TABLE IF NOT EXISTS USERS (
+            User_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            User_Name CHAR(50) NOT NULL,
+            Password CHAR(50) NOT NULL,
+            Role CHAR(25) NOT NULL
+        );
+    """
+    execute_query(connection, table_query)
 
     # Initial users
     users = [
@@ -23,28 +34,21 @@ def create_users_db():
         ("Reader", "Reader Password", "Reader"),
         ("csana", "123", "Admin")
     ]
-
-    cursor_obj.executemany("INSERT INTO USERS (User_Name, Password, Role) VALUES (?, ?, ?)", users)
-    print("Initial records inserted.")
-
-    connection_obj.commit()
-    connection_obj.close()
+    insert_query = "INSERT INTO USERS (User_Name, Password, Role) VALUES (?, ?, ?)"
+    execute_query(connection, insert_query, users)
+    print("\"USERS\" table is created and initial records inserted.")
 
 
-def create_books_db():
-    connection_obj = sqlite3.connect("db/books.db")
-    cursor_obj = connection_obj.cursor()
-
-    cursor_obj.execute("DROP TABLE IF EXISTS BOOKS")
-
-    table = """ CREATE TABLE BOOKS (
-                Book_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                Name CHAR(50) NOT NULL,
-                Author CHAR(50) NOT NULL
-              ); """
-
-    cursor_obj.execute(table)
-    print("\"books\" table is created/overridden'")
+def create_books_table(connection):
+    """Creates the BOOKS table."""
+    table_query = """
+        CREATE TABLE IF NOT EXISTS BOOKS (
+            Book_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Name CHAR(50) NOT NULL,
+            Author CHAR(50) NOT NULL
+        );
+    """
+    execute_query(connection, table_query)
 
     # Initial books
     books = [
@@ -53,17 +57,16 @@ def create_books_db():
         ("Hajnal Csillag", "Pierce Brown"),
         ("Káosz Évei", "Pierce Brown")
     ]
-
-    cursor_obj.executemany("INSERT INTO BOOKS (Name, Author) VALUES (?, ?)", books)
-    print("Initial records inserted.")
-
-    connection_obj.commit()
-    connection_obj.close()
+    insert_query = "INSERT INTO BOOKS (Name, Author) VALUES (?, ?)"
+    execute_query(connection, insert_query, books)
+    print("\"BOOKS\" table is created and initial records inserted.")
 
 
 def main():
-    create_users_db()
-    create_books_db()
+    connection = create_connection()
+    create_users_table(connection)
+    create_books_table(connection)
+    connection.close()
 
 
 if __name__ == "__main__":

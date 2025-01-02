@@ -9,7 +9,7 @@ def login():
     password = input("Password: ")
 
     try:
-        connection_obj = sqlite3.connect("db/users.db")
+        connection_obj = sqlite3.connect("db/library.db")
         cursor_obj = connection_obj.cursor()
 
         query = """
