@@ -1,5 +1,5 @@
 from login_handler import login
-from modify_db import create_new_user
+from modify_db import create_new_user, delete_user
 
 
 def main():
@@ -33,7 +33,7 @@ def menu(options, role):
         elif user_input == "5" and role == "Admin":
             add_user()
         elif user_input == "6" and role == "Admin":
-            print("Remove a user")
+            remove_user()
         elif user_input == "9":
             exit()
         else:
@@ -69,7 +69,15 @@ def add_user():
         print("Invalid input(s)! Every field must be filled!")
 
     create_new_user(user_name, password, role)
-    print("New user created successfully!")
+    print(f"New user ({user_name}) created successfully!")
+
+
+def remove_user():
+    user_name = input("\nUsername: ")
+
+    delete_user(user_name)
+
+    print(f"User ({user_name}) deleted successfully!")
 
 
 if __name__ == "__main__":
