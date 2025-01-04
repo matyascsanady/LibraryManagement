@@ -1,3 +1,5 @@
+from idlelib.pyparse import trans
+
 import create_db
 from login_handler import login
 from modify_db import *
@@ -126,7 +128,7 @@ def statistics(user_id, role):
          elif user_input == "10" and role != "Reader":
              avg_book_qual()
          elif user_input == "11" and role != "Reader":
-             pass
+             list_user_rented_books()
          elif user_input == "99":
              return
          else:
@@ -150,7 +152,7 @@ def get_statistics_options(role):
                     "8 - Highest amount of the same books",
                     "9 - Average number of books currently rented per user",
                     "10 - Average book quality",
-                    "11 - List every rent by a user"]:
+                    "11 - List every current rent by a user"]:
             options.append(opt)
 
     options.append("99 - Return")
@@ -329,6 +331,38 @@ def avg_book_qual():
 
     print(f"The average quality of the books in the library is {round(sum_quality / valid_book_num, 2)}")
     input("\nPress Enter to continue...")
+
+
+def list_user_rented_books():
+    """Shows the currently rented books of the given user."""
+
+    users = get_users()
+    user_ids = [user[0] for user in users]
+
+    print()
+    for user in users:
+        print(f"{user[0]} - {user[1]}")
+
+    while True:
+        selected_id = input("\nPlease select a user ID: ")
+        try:
+            selected_id = int(selected_id)
+
+            if selected_id not in user_ids:
+                print("Invalid selection. Try again!")
+                continue
+
+            user_rents = get_user_books(selected_id)
+
+            print(f"Books rented by \"{get_user_by_id(selected_id)[1]}\" are:")
+            for book in user_rents:
+                print(f"{book[0]} - {book[1]}")
+
+            input("\nPress Enter to continue...")
+            break
+
+        except ValueError:
+            print("Invalid input! Try again!")
 
 
 # Reader options
