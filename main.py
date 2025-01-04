@@ -1,5 +1,3 @@
-from stringprep import in_table_c8
-
 import create_db
 from login_handler import login
 from modify_db import *
@@ -126,7 +124,7 @@ def statistics(user_id, role):
          elif user_input == "9" and role != "Reader":
              avg_book_num_per_user()
          elif user_input == "10" and role != "Reader":
-             pass
+             avg_book_qual()
          elif user_input == "11" and role != "Reader":
              pass
          elif user_input == "99":
@@ -314,6 +312,22 @@ def avg_book_num_per_user():
 
 
     print(f"The average number of books rented per user is {round(books_read_by_users / len(user_ids), 2)}")
+    input("\nPress Enter to continue...")
+
+
+def avg_book_qual():
+    """Show the user that average book quality in the library."""
+
+    books = get_all_books()
+
+    sum_quality = 0
+    valid_book_num = 0
+    for book in books:
+        if book[6]:
+            sum_quality += book[6]
+            valid_book_num += 1
+
+    print(f"The average quality of the books in the library is {round(sum_quality / valid_book_num, 2)}")
     input("\nPress Enter to continue...")
 
 
