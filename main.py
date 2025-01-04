@@ -1,5 +1,3 @@
-from idlelib.pyparse import trans
-
 import create_db
 from login_handler import login
 from modify_db import *
@@ -168,7 +166,7 @@ def current_user_rented_books(user_id):
         print("You don't rent any books!")
         return
 
-    print()
+    print("\nYour currently rented books:\n")
     for book in books:
         print(f"{book[0]} - {book[1]}")
 
@@ -183,7 +181,7 @@ def current_user_read_books(user_id):
         print("You have not read any books! Try renting some!")
         return
 
-    print()
+    print("\nYour read books:\n")
     for book in books:
         print(f"{book[0]} - {book[1]}")
 
@@ -200,7 +198,7 @@ def number_of_books():
 
     num = len(books)
 
-    print(f"There are {num} books in the library.")
+    print(f"\nThere are {num} books in the library.")
     input("\nPress Enter to continue...")
 
 
@@ -217,7 +215,7 @@ def average_page_num():
         if book[3]:
             pages += int(book[3])
 
-    print(f"The average page number is {round(pages / len(books))}")
+    print(f"\nThe average page number is {round(pages / len(books))}")
     input("\nPress Enter to continue...")
 
 
@@ -231,7 +229,7 @@ def max_page_num():
 
     pages = [int(book[3]) for book in books if book[3]]
 
-    print(f"The max page number is {max(pages)}")
+    print(f"\nThe max page number is {max(pages)}")
     input("\nPress Enter to continue...")
 
 
@@ -245,7 +243,7 @@ def min_page_num():
 
     pages = [int(book[3]) for book in books if book[3]]
 
-    print(f"The max page number is {min(pages)}")
+    print(f"\nThe max page number is {min(pages)}")
     input("\nPress Enter to continue...")
 
 
@@ -270,7 +268,7 @@ def most_active_reader():
         elif num == max_books_read:
             most_active_users.append(user_id)
 
-
+    print("\nThe most active users are:")
     for user_id in most_active_users:
         print(f"{get_user_by_id(user_id)[1]}(ID: {user_id}) read {result[user_id]} books")
 
@@ -295,7 +293,7 @@ def most_books():
     max_copies = max(results.values())
     highest_amount_books = [book for book, count in results.items() if count == max_copies]
 
-    print("Highest amount of a single book(s):")
+    print("\nHighest amount of a single book(s):")
     for book in highest_amount_books:
         print(f"\"{book}\" has {max_copies} copies in the library")
 
@@ -313,7 +311,7 @@ def avg_book_num_per_user():
         books_read_by_users += len(get_user_books(user_id))
 
 
-    print(f"The average number of books rented per user is {round(books_read_by_users / len(user_ids), 2)}")
+    print(f"\nThe average number of books rented per user is {round(books_read_by_users / len(user_ids), 2)}")
     input("\nPress Enter to continue...")
 
 
@@ -329,7 +327,7 @@ def avg_book_qual():
             sum_quality += book[6]
             valid_book_num += 1
 
-    print(f"The average quality of the books in the library is {round(sum_quality / valid_book_num, 2)}")
+    print(f"\nThe average quality of the books in the library is {round(sum_quality / valid_book_num, 2)}")
     input("\nPress Enter to continue...")
 
 
@@ -354,7 +352,7 @@ def list_user_rented_books():
 
             user_rents = get_user_books(selected_id)
 
-            print(f"Books rented by \"{get_user_by_id(selected_id)[1]}\" are:")
+            print(f"\nBooks rented by \"{get_user_by_id(selected_id)[1]}\" are:")
             for book in user_rents:
                 print(f"{book[0]} - {book[1]}")
 
