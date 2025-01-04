@@ -116,9 +116,9 @@ def statistics(user_id, role):
          elif user_input == "4" and role != "Reader":
              average_page_num()
          elif user_input == "5" and role != "Reader":
-             pass
+             max_page_num()
          elif user_input == "6" and role != "Reader":
-             pass
+             min_page_num()
          elif user_input == "7" and role != "Reader":
              pass
          elif user_input == "8" and role != "Reader":
@@ -148,7 +148,7 @@ def get_statistics_options(role):
                     "4 - Average page number",
                     "5 - Max page number",
                     "6 - Min page number",
-                    "7 - Most active reader"
+                    "7 - Most active reader",
                     "8 - Highest amount of the same books",
                     "9 - Average number of books per user",
                     "10 - Average book quality",
@@ -218,6 +218,34 @@ def average_page_num():
             pages += int(book[3])
 
     print(f"The average page number is {round(pages / len(books))}")
+    input("\nPress Enter to continue...")
+
+
+def max_page_num():
+    """Shows the user the max page number of the books in the library."""
+
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        return
+
+    pages = [int(book[3]) for book in books if book[3]]
+
+    print(f"The max page number is {max(pages)}")
+    input("\nPress Enter to continue...")
+
+
+def min_page_num():
+    """Shows the user the min page number of the books in the library."""
+
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        return
+
+    pages = [int(book[3]) for book in books if book[3]]
+
+    print(f"The max page number is {min(pages)}")
     input("\nPress Enter to continue...")
 
 
