@@ -86,6 +86,7 @@ def create_rents_table(connection):
             Reader_ID INTEGER NOT NULL,
             Rent_Out_Date DATE DEFAULT (DATE('now')),
             Due_Date DATE DEFAULT (DATE('now', '+30 days')),
+            Return_Date DATE DEFAULT NULL,
             FOREIGN KEY (Reader_ID) REFERENCES USERS(User_ID),
             FOREIGN KEY (Book_ID) REFERENCES BOOKS(Book_ID)
         );
