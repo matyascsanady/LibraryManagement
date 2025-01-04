@@ -1,4 +1,3 @@
-import os
 import create_db
 from login_handler import login
 from modify_db import *
