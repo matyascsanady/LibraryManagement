@@ -27,6 +27,13 @@ def display_welcome():
     print("To use the software you have to login first. Please do so below.\n\n")
 
 
+def display_goodbye():
+    """Says goodbye to the user."""
+
+    print("\nThank you for using LibraryManagement software!")
+    print("Hope you found all the books you wanted. Hope to see you soon.")
+
+
 def menu(options, record):
     """Main menu of the software. Options are based on user roles."""
 
@@ -55,6 +62,7 @@ def menu(options, record):
         elif user_input == "7" and role == "Admin":
             reset_db()
         elif user_input == "9":
+            display_goodbye()
             exit()
         else:
             print("Invalid input! Try again")
