@@ -1,7 +1,7 @@
 import os
 import create_db
 from login_handler import login
-from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent
+from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent, create_book
 from read_db import get_available_books, get_user_books
 
 
@@ -37,9 +37,9 @@ def menu(options, record):
         elif user_input == "2":
             return_book(record[0])
         elif user_input == "3" and role != "Reader":
-            print("Add a book")
+            add_book()
         elif user_input == "4" and role != "Reader":
-            print("Remove a book")
+            remove_book()
         elif user_input == "5" and role == "Admin":
             add_user()
         elif user_input == "6" and role == "Admin":
@@ -120,6 +120,47 @@ def return_book(user_id):
                 print("Invalid input! Try again")
         except ValueError:
             print("Invalid input! Try again")
+
+
+# Librarian options
+def add_book():
+
+    while True:
+        name = input("Name: ")
+        author = input("Author: ")
+        pages = input("Pages: ")
+        release_year = input("Release Year: ")
+        language = input("Language: ")
+
+        if not name or not author:
+            print("Invalid input (name and author are required)! Try again")
+            continue
+
+        if language and language not in ["magyar", "angol"]:
+            print("Invalid language (either use \"magyar\" or \"angol\")! Try again")
+            continue
+
+        if pages:
+            try:
+                pages = int(pages)
+            except ValueError:
+                print("Invalid input (pages has to be a number)! Try again")
+                continue
+
+        if release_year:
+            try:
+                release_year = int(release_year)
+            except ValueError:
+                print("Invalid input (release year has to be a number)! Try again")
+                continue
+
+        break
+
+    create_book(name, author, pages, release_year, language)
+
+
+def remove_book():
+    pass
 
 
 # Admin options

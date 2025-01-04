@@ -61,3 +61,14 @@ def finish_rent(user_id, book_id):
     connection.commit()
     connection.close()
     print(f"Rent for '{book_id}' finished successfully.")
+
+
+def create_book(name, author, pages, release_year, language):
+    """Creates a new book record in the Books table."""
+
+    connection = create_connection()
+    insert_query = "INSERT INTO BOOKS (Name, Author, Pages, Release_Year, Language) VALUES (?, ?, ?, ?, ?)"
+    execute_query(connection, insert_query, (name, author, pages, release_year, language))
+
+    connection.close()
+    print(f"Book '{name}' created successfully.")
