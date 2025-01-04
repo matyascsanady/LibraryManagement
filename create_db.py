@@ -60,19 +60,39 @@ def create_books_table(connection):
         CREATE TABLE BOOKS (
             Book_ID INTEGER PRIMARY KEY AUTOINCREMENT,
             Name CHAR(50) NOT NULL,
-            Author CHAR(50) NOT NULL
+            Author CHAR(50) NOT NULL,
+            Pages INTEGER,
+            Release_Year INTEGER,
+            Language CHAR(25)
         );
     """
     execute_query(connection, table_query)
 
     # Initial books
     init_books = [
-        ("Vörös Lázadás", "Pierce Brown"),
-        ("Arany Háború", "Pierce Brown"),
-        ("Hajnal Csillag", "Pierce Brown"),
-        ("Káosz Évei", "Pierce Brown")
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
+        ("Arany Háború", "Pierce Brown", 494, 2015, "magyar"),
+        ("Hajnal Csillag", "Pierce Brown", 566, 2016, "magyar"),
+        ("Káosz Évei", "Pierce Brown", 606, 2018, "magyar"),
+        ("A Sötétség Kora", "Pierce Brown", 892, 2019, "magyar"),
+        ("Fényhozó", "Pierce Brown", 828, 2023, "magyar"),
+        ("Supermarket", "Bobby Hall", 266, 2019, "angol"),
+        ("Az idő rövid története", "Stephen Hawking", 247, 1988, "magyar"),
+        ("Billy Summers", "Stephen King", 528, 2021, "angol"),
+        ("20,000 Leagues Under The Sea", "Jules Verne", 368, 1870, "angol"),
+        ("A Halál Szobrásza", "Chris Carter", 378, 2010, "magyar"),
+        ("Vérrel Írva", "Chris Carter", 328, 2011, "magyar"),
+        ("A Holtak Csarnoka", "Chris Carter", 344, 2012, "magyar"),
+        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar"),
+        ("A Kívülálló", "Stephen King", 504, 2018, "magyar"),
+        ("The Call of the Wild", "Jack London", 144, 1903, "angol"),
+        ("How To Solve Your Own Murder", "Kristen Perrin", 358, 2024, "angol"),
+        ("American Prometheus", "Kai Bird, Martin J. Sherwin", 721, 2005, "angol"),
+        ("How To Build A Car", "Adrian Newey", 504, 2017, "angol"),
+        ("Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin", 464, 2008, "angol")
     ]
-    insert_query = "INSERT INTO BOOKS (Name, Author) VALUES (?, ?)"
+
+    insert_query = "INSERT INTO BOOKS (Name, Author, Pages, Release_Year, Language) VALUES (?, ?, ?, ?, ?)"
     execute_query(connection, insert_query, init_books)
     print("\"BOOKS\" table is created and initial records inserted.")
 
