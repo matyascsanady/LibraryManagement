@@ -76,7 +76,12 @@ def create_books_table(connection):
         ("How To Solve Your Own Murder", "Kristen Perrin", 358, 2024, "angol"),
         ("American Prometheus", "Kai Bird, Martin J. Sherwin", 721, 2005, "angol"),
         ("How To Build A Car", "Adrian Newey", 504, 2017, "angol"),
-        ("Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin", 464, 2008, "angol")
+        ("Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin", 464, 2008, "angol"),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
+        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar"),
+        ("A Kívülálló", "Stephen King", 504, 2018, "magyar")
     ]
 
     insert_query = "INSERT INTO BOOKS (Name, Author, Pages, Release_Year, Language) VALUES (?, ?, ?, ?, ?)"

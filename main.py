@@ -122,7 +122,7 @@ def statistics(user_id, role):
          elif user_input == "7" and role != "Reader":
              most_active_reader()
          elif user_input == "8" and role != "Reader":
-             pass
+             most_books()
          elif user_input == "9" and role != "Reader":
              pass
          elif user_input == "10" and role != "Reader":
@@ -273,6 +273,31 @@ def most_active_reader():
 
     for user_id in most_active_users:
         print(f"{get_user_by_id(user_id)[1]}(ID: {user_id}) read {result[user_id]} books")
+
+    input("\nPress Enter to continue...")
+
+
+def most_books():
+    """Shows the user the highest amount of book(s) in the library."""
+
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        return
+
+    results = {}
+    for book in books:
+        if book[1] not in results.keys():
+            results[book[1]] = 1
+        else:
+            results[book[1]] += 1
+
+    max_copies = max(results.values())
+    highest_amount_books = [book for book, count in results.items() if count == max_copies]
+
+    print("Highest amount of a single book(s):")
+    for book in highest_amount_books:
+        print(f"\"{book}\" has {max_copies} copies in the library")
 
     input("\nPress Enter to continue...")
 
