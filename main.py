@@ -110,7 +110,7 @@ def statistics(user_id, role):
          elif user_input == "2":
              current_user_read_books(user_id)
          elif user_input == "3" and role != "Reader":
-             pass
+             number_of_books()
          elif user_input == "4" and role != "Reader":
              pass
          elif user_input == "5" and role != "Reader":
@@ -185,6 +185,15 @@ def current_user_read_books(user_id):
     for book in books:
         print(f"{book[0]} - {book[1]}")
 
+    input("\nPress Enter to continue...")
+
+
+def number_of_books():
+    """Shows the user the number of books in the library."""
+
+    num = len(get_all_books())
+
+    print(f"There are {num} books in the library.")
     input("\nPress Enter to continue...")
 
 
