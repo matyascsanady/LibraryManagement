@@ -137,6 +137,15 @@ def create_rents_table(connection):
 
 
 def main():
+    """
+    If the DB is non-existing, it creates a new DB and fills it with initial values.
+    If the DB exists, it overrides the whole DB by dropping the tables,
+    create them again and fill them with initial values.
+
+    It is being run by the main.py main function (if no DB exists), by an admin option (override DB) or
+    manually running this script (also overrides the DB).
+    """
+
     connection = create_connection()
     connection.execute("PRAGMA foreign_keys = ON;")
 
