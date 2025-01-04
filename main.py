@@ -130,7 +130,7 @@ def statistics(user_id, role):
          elif user_input == "12" and role != "Reader":
              books_released_in_year()
          elif user_input == "13" and role != "Reader":
-             pass
+             books_written_in_language()
          elif user_input == "99":
              return
          else:
@@ -390,6 +390,42 @@ def books_released_in_year():
             print(f"{book[0]} - {book[1]}")
     else:
         print(f"\nThere are no books in the library. That were released in {year}")
+
+    input("\nPress Enter to continue...")
+
+
+def books_written_in_language():
+    """Lists the books that were written in the given language."""
+
+    books = get_all_books()
+
+    results = {
+        "magyar": [],
+        "angol": []
+    }
+
+    for book in books:
+        if book[5]:
+            results[book[5]].append(book)
+
+    while True:
+        selected_lang = input("\nPlease select a language (magyar/angol): ")
+
+        if not selected_lang in ["magyar", "angol"]:
+            print("Invalid selection. Try again!")
+            continue
+
+        else:
+            result = results[selected_lang]
+            if result:
+                print(f"\nBooks written in the language \"{selected_lang}\":")
+                for book in result:
+                    print(f"{book[0]} - {book[1]}")
+
+            else:
+                print(f"\nThere are no books in the library. That were written in the language \"{selected_lang}\"")
+
+            break
 
     input("\nPress Enter to continue...")
 
