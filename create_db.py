@@ -50,41 +50,44 @@ def create_books_table(connection):
             Author CHAR(50) NOT NULL,
             Pages INTEGER,
             Release_Year INTEGER,
-            Language CHAR(25)
+            Language CHAR(25),
+            Quality INTEGER DEFAULT NULL CHECK (Quality BETWEEN 1 AND 5)
         );
     """
     execute_query(connection, table_query)
 
-    # Initial books
     init_books = [
-        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
-        ("Arany Háború", "Pierce Brown", 494, 2015, "magyar"),
-        ("Hajnal Csillag", "Pierce Brown", 566, 2016, "magyar"),
-        ("Káosz Évei", "Pierce Brown", 606, 2018, "magyar"),
-        ("A Sötétség Kora", "Pierce Brown", 892, 2019, "magyar"),
-        ("Fényhozó", "Pierce Brown", 828, 2023, "magyar"),
-        ("Supermarket", "Bobby Hall", 266, 2019, "angol"),
-        ("Az idő rövid története", "Stephen Hawking", 247, 1988, "magyar"),
-        ("Billy Summers", "Stephen King", 528, 2021, "angol"),
-        ("20,000 Leagues Under The Sea", "Jules Verne", 368, 1870, "angol"),
-        ("A Halál Szobrásza", "Chris Carter", 378, 2010, "magyar"),
-        ("Vérrel Írva", "Chris Carter", 328, 2011, "magyar"),
-        ("A Holtak Csarnoka", "Chris Carter", 344, 2012, "magyar"),
-        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar"),
-        ("A Kívülálló", "Stephen King", 504, 2018, "magyar"),
-        ("The Call of the Wild", "Jack London", 144, 1903, "angol"),
-        ("How To Solve Your Own Murder", "Kristen Perrin", 358, 2024, "angol"),
-        ("American Prometheus", "Kai Bird, Martin J. Sherwin", 721, 2005, "angol"),
-        ("How To Build A Car", "Adrian Newey", 504, 2017, "angol"),
-        ("Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin", 464, 2008, "angol"),
-        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
-        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
-        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar"),
-        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar"),
-        ("A Kívülálló", "Stephen King", 504, 2018, "magyar")
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar", 5),
+        ("Arany Háború", "Pierce Brown", 494, 2015, "magyar", 4),
+        ("Hajnal Csillag", "Pierce Brown", 566, 2016, "magyar", 4),
+        ("Káosz Évei", "Pierce Brown", 606, 2018, "magyar", 3),
+        ("A Sötétség Kora", "Pierce Brown", 892, 2019, "magyar", 5),
+        ("Fényhozó", "Pierce Brown", 828, 2023, "magyar", None),
+        ("Supermarket", "Bobby Hall", 266, 2019, "angol", 4),
+        ("Az idő rövid története", "Stephen Hawking", 247, 1988, "magyar", 5),
+        ("Billy Summers", "Stephen King", 528, 2021, "angol", None),
+        ("20,000 Leagues Under The Sea", "Jules Verne", 368, 1870, "angol", 3),
+        ("A Halál Szobrásza", "Chris Carter", 378, 2010, "magyar", 4),
+        ("Vérrel Írva", "Chris Carter", 328, 2011, "magyar", None),
+        ("A Holtak Csarnoka", "Chris Carter", 344, 2012, "magyar", None),
+        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar", 2),
+        ("A Kívülálló", "Stephen King", 504, 2018, "magyar", 3),
+        ("The Call of the Wild", "Jack London", 144, 1903, "angol", 4),
+        ("How To Solve Your Own Murder", "Kristen Perrin", 358, 2024, "angol", 5),
+        ("American Prometheus", "Kai Bird, Martin J. Sherwin", 721, 2005, "angol", 5),
+        ("How To Build A Car", "Adrian Newey", 504, 2017, "angol", 4),
+        ("Clean Code: A Handbook of Agile Software Craftsmanship", "Robert C. Martin", 464, 2008, "angol", 5),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar", None),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar", None),
+        ("Vörös Lázadás", "Pierce Brown", 424, 2014, "magyar", None),
+        ("A Gonosz Nyomában", "Chris Carter", 256, 2013, "magyar", None),
+        ("A Kívülálló", "Stephen King", 504, 2018, "magyar", 3)
     ]
 
-    insert_query = "INSERT INTO BOOKS (Name, Author, Pages, Release_Year, Language) VALUES (?, ?, ?, ?, ?)"
+    insert_query = """
+        INSERT INTO BOOKS (Name, Author, Pages, Release_Year, Language, Quality)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """
     execute_query(connection, insert_query, init_books)
     print("\"BOOKS\" table is created and initial records inserted.")
 
