@@ -502,8 +502,8 @@ def add_book():
         language = input("Language: ")
         quality = input("Quality: ")
 
-        if not name or not author:
-            print("Invalid input (name and author are required)! Try again")
+        if not name or not author or not quality:
+            print("Invalid input (name, author and quality are required)! Try again")
             continue
 
         if pages:
@@ -524,13 +524,13 @@ def add_book():
             print("Invalid language (either use \"magyar\" or \"angol\")! Try again")
             continue
 
-        if quality and quality not in ["1", "2", "3", "4", "5"]:
+        if quality not in ["1", "2", "3", "4", "5"]:
             print("Invalid input (quality has to an integer between 1 and 5! Try again)")
             continue
 
         break
 
-    create_book(name, author, pages, release_year, language, int(quality))
+    create_book(name, author, pages, release_year, language, quality)
 
 
 def remove_book():
