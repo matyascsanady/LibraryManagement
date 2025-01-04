@@ -120,7 +120,7 @@ def statistics(user_id, role):
          elif user_input == "6" and role != "Reader":
              min_page_num()
          elif user_input == "7" and role != "Reader":
-             pass
+             most_active_reader()
          elif user_input == "8" and role != "Reader":
              pass
          elif user_input == "9" and role != "Reader":
@@ -246,6 +246,34 @@ def min_page_num():
     pages = [int(book[3]) for book in books if book[3]]
 
     print(f"The max page number is {min(pages)}")
+    input("\nPress Enter to continue...")
+
+
+def most_active_reader():
+    """Shows the user(s) with the highest number of books read."""
+
+    result = {}
+
+    users = get_users()
+    user_ids = [user[0] for user in users]
+
+    max_books_read = 0
+    most_active_users = []
+
+    for user_id in user_ids:
+        num = len(get_user_read_books(user_id))
+        result[user_id] = num
+
+        if num > max_books_read:
+            max_books_read = num
+            most_active_users = [user_id]
+        elif num == max_books_read:
+            most_active_users.append(user_id)
+
+
+    for user_id in most_active_users:
+        print(f"{get_user_by_id(user_id)[1]}(ID: {user_id}) read {result[user_id]} books")
+
     input("\nPress Enter to continue...")
 
 

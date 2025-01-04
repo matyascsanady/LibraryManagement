@@ -76,3 +76,13 @@ def get_users():
     connection.close()
 
     return results
+
+
+def get_user_by_id(user_id):
+    """Returns the username of the given user id."""
+
+    connection = create_connection()
+    results = execute_query(connection, "SELECT * FROM USERS WHERE User_ID = ?;", (user_id,))
+    connection.close()
+
+    return results[0]
