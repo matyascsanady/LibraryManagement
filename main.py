@@ -1,3 +1,5 @@
+from stringprep import in_table_c8
+
 import create_db
 from login_handler import login
 from modify_db import *
@@ -112,7 +114,7 @@ def statistics(user_id, role):
          elif user_input == "3" and role != "Reader":
              number_of_books()
          elif user_input == "4" and role != "Reader":
-             pass
+             average_page_num()
          elif user_input == "5" and role != "Reader":
              pass
          elif user_input == "6" and role != "Reader":
@@ -191,9 +193,31 @@ def current_user_read_books(user_id):
 def number_of_books():
     """Shows the user the number of books in the library."""
 
-    num = len(get_all_books())
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        return
+
+    num = len(books)
 
     print(f"There are {num} books in the library.")
+    input("\nPress Enter to continue...")
+
+
+def average_page_num():
+    """Shows the user the average page number of books in the library."""
+
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        return
+
+    pages = 0
+    for book in books:
+        if book[3]:
+            pages += int(book[3])
+
+    print(f"The average page number is {round(pages / len(books))}")
     input("\nPress Enter to continue...")
 
 
