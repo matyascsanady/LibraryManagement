@@ -47,7 +47,9 @@ def menu(options, record):
 
         user_input = input("\nEnter your choice: ")
 
-        if user_input == "1":
+        if user_input == "0":
+            statistics(role)
+        elif user_input == "1":
             rent_book(active_user_id)
         elif user_input == "2":
             return_book(active_user_id)
@@ -72,6 +74,7 @@ def get_main_menu_options(role):
     """Defines the options based on the user role."""
 
     options = [
+        "0 - Statistics",
         "1 - Rent a book",
         "2 - Return a book"
     ]
@@ -87,6 +90,71 @@ def get_main_menu_options(role):
     options.append("9 - Exit")
 
     return options
+
+
+def get_statistics_options(role):
+    """Defines the options for the statistics menu based on the user role."""
+
+    options = [
+        "1 - My currently rented books",
+        "2 - My read books"
+    ]
+
+    if role == "Librarian" or role == "Admin":
+        for opt in ["3 - Number of books in library",
+                    "4 - Average page number",
+                    "5 - Max page number",
+                    "6 - Min page number",
+                    "7 - Most active reader"
+                    "8 - Highest amount of the same books",
+                    "9 - Average number of books per user",
+                    "10 - Average book quality",
+                    "11 - List every rent by a user"]:
+            options.append(opt)
+
+    options.append("99 - Return")
+
+    return options
+
+
+def statistics(role):
+     """Statistics option."""
+
+     options = get_statistics_options(role)
+
+     while True:
+         print()
+         for option in options:
+             print(option)
+
+         user_input = input("\nEnter your choice: ")
+
+         if user_input == "1":
+             pass
+         elif user_input == "2":
+             pass
+         elif user_input == "3" and role != "Reader":
+             pass
+         elif user_input == "4" and role != "Reader":
+             pass
+         elif user_input == "5" and role != "Reader":
+             pass
+         elif user_input == "6" and role != "Reader":
+             pass
+         elif user_input == "7" and role != "Reader":
+             pass
+         elif user_input == "8" and role != "Reader":
+             pass
+         elif user_input == "9" and role != "Reader":
+             pass
+         elif user_input == "10" and role != "Reader":
+             pass
+         elif user_input == "11" and role != "Reader":
+             pass
+         elif user_input == "99":
+             return
+         else:
+             print("Invalid input! Try again")
 
 
 # Reader options
