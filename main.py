@@ -127,6 +127,10 @@ def statistics(user_id, role):
              avg_book_qual()
          elif user_input == "11" and role != "Reader":
              list_user_rented_books()
+         elif user_input == "12" and role != "Reader":
+             books_released_in_year()
+         elif user_input == "13" and role != "Reader":
+             pass
          elif user_input == "99":
              return
          else:
@@ -150,7 +154,9 @@ def get_statistics_options(role):
                     "8 - Highest amount of the same books",
                     "9 - Average number of books currently rented per user",
                     "10 - Average book quality",
-                    "11 - List every current rent by a user"]:
+                    "11 - List every current rent by a user",
+                    "12 - Books released in (given year)...",
+                    "13 - Books written in (given language)..."]:
             options.append(opt)
 
     options.append("99 - Return")
@@ -361,6 +367,31 @@ def list_user_rented_books():
 
         except ValueError:
             print("Invalid input! Try again!")
+
+
+def books_released_in_year():
+    """Lists the books released in the given year."""
+
+    books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+
+    while True:
+        try:
+            year = int(input("\nPlease select a year: "))
+            break
+        except ValueError:
+            print("Invalid input! Try again!")
+
+    valid_books = [book for book in books if book[4] == year]
+    if valid_books:
+        print(f"\nBooks released in the year {year}:")
+        for book in valid_books:
+            print(f"{book[0]} - {book[1]}")
+    else:
+        print(f"\nThere are no books in the library. That were released in {year}")
+
+    input("\nPress Enter to continue...")
 
 
 # Reader options
