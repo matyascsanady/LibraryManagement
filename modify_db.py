@@ -7,7 +7,8 @@ def create_new_user(user_name, password, role):
     insert_query = "INSERT INTO USERS (User_Name, Password, Role) VALUES (?, ?, ?)"
     execute_query(connection, insert_query, (user_name, password, role))
     connection.close()
-    print(f"User '{user_name}' added successfully.")
+    print(f"\nUser '{user_name}' added successfully.")
+    input("Press Enter to continue...")
 
 
 def delete_user(user_id):
@@ -16,7 +17,8 @@ def delete_user(user_id):
     delete_query = "DELETE FROM USERS WHERE User_ID = ?"
     execute_query(connection, delete_query, (user_id,))
     connection.close()
-    print(f"User '{user_id}' deleted successfully.")
+    print(f"\nUser '{user_id}' deleted successfully.")
+    input("Press Enter to continue...")
 
 
 def crete_new_rent(user_id, book_id):
@@ -26,7 +28,8 @@ def crete_new_rent(user_id, book_id):
     insert_query = "INSERT INTO RENTS (Reader_ID, Book_ID) VALUES (?, ?)"
     execute_query(connection, insert_query, (user_id, book_id))
     connection.close()
-    print(f"Rent for '{book_id}' created successfully.")
+    print(f"\nRent for '{book_id}' created successfully.")
+    input("Press Enter to continue...")
 
 
 def finish_rent(user_id, book_id):
@@ -45,7 +48,8 @@ def finish_rent(user_id, book_id):
     cursor.execute(update_query, (user_id, book_id))
     connection.commit()
     connection.close()
-    print(f"Rent for '{book_id}' finished successfully.")
+    print(f"\nRent for '{book_id}' finished successfully.")
+    input("Press Enter to continue...")
 
 
 def create_book(name, author, pages, release_year, language, quality):
@@ -56,7 +60,8 @@ def create_book(name, author, pages, release_year, language, quality):
     execute_query(connection, insert_query, (name, author, pages, release_year, language, quality))
 
     connection.close()
-    print(f"Book '{name}' created successfully.")
+    print(f"\nBook '{name}' created successfully.")
+    input("Press Enter to continue...")
 
 
 def delete_book_by_id(book_id):
@@ -66,4 +71,5 @@ def delete_book_by_id(book_id):
     delete_query = "DELETE FROM BOOKS WHERE Book_ID = ?"
     execute_query(connection, delete_query, (book_id,))
     connection.close()
-    print(f"Book '{book_id}' deleted successfully.")
+    print(f"\nBook '{book_id}' deleted successfully.")
+    input("Press Enter to continue...")
