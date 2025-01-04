@@ -44,11 +44,16 @@ def create_users_table(connection):
 
     # Initial users
     init_users = [
-        ("Admin", "Admin Password", "Admin"),
-        ("Librarian", "Library Password", "Librarian"),
-        ("Reader", "Reader Password", "Reader"),
-        ("csana", "123", "Admin")
+        ("Manager", "Manager123", "Admin"),
+        ("AssistantLibrarian", "AssistLib456", "Librarian"),
+        ("GuestUser", "Welcome789", "Reader"),
+        ("JohnDoe", "secure123", "Reader"),
+        ("JaneSmith", "pass456", "Librarian"),
+        ("csana", "123", "Admin"),
+        ("AliceReader", "read123", "Reader"),
+        ("BobReader", "page456", "Reader"),
     ]
+
     insert_query = "INSERT INTO USERS (User_Name, Password, Role) VALUES (?, ?, ?)"
     execute_query(connection, insert_query, init_users)
     print("\"USERS\" table is created and initial records inserted.")
