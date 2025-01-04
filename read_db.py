@@ -15,11 +15,12 @@ def execute_query(connection, query, data=None):
         cursor.execute(query)
     connection.commit()
 
+    return cursor.fetchall()
+
 
 def get_available_books():
     """Returns the books that are available to rent."""
     connection = create_connection()
-    cursor = connection.cursor()
 
     query = """
         SELECT * 
@@ -31,9 +32,7 @@ def get_available_books():
         );
     """
 
-    cursor.execute(query)
-    results = cursor.fetchall()
-
+    results = execute_query(connection, query)
     connection.close()
 
     return results
@@ -41,7 +40,6 @@ def get_available_books():
 def get_user_books(user_id):
     """Returns the books that the user currently rents."""
     connection = create_connection()
-    cursor = connection.cursor()
 
     query = """
         SELECT BOOKS.*
@@ -51,9 +49,7 @@ def get_user_books(user_id):
         AND RENTS.Return_Date IS NULL;
     """
 
-    cursor.execute(query, (user_id,))
-    results = cursor.fetchall()
-
+    results = execute_query(connection, query, (user_id,))
     connection.close()
 
     return results
