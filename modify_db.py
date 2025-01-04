@@ -42,3 +42,22 @@ def crete_new_rent(user_id, book_id):
     execute_query(connection, insert_query, (user_id, book_id))
     connection.close()
     print(f"Rent for '{book_id}' created successfully.")
+
+
+def finish_rent(user_id, book_id):
+    """Closes the rent by filling the return date."""
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    update_query = """
+        UPDATE RENTS
+        SET Return_Date = DATE('now')
+        WHERE Reader_ID = ?
+        AND Book_ID = ?
+        AND Return_Date IS NULL;
+    """
+
+    cursor.execute(update_query, (user_id, book_id))
+    connection.commit()
+    connection.close()
+    print(f"Rent for '{book_id}' finished successfully.")

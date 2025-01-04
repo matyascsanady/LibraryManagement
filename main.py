@@ -1,8 +1,8 @@
 import os
 import create_db
 from login_handler import login
-from modify_db import create_new_user, delete_user, crete_new_rent
-from read_db import get_available_books
+from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent
+from read_db import get_available_books, get_user_books
 
 
 def main():
@@ -35,7 +35,7 @@ def menu(options, record):
         if user_input == "1":
             rent_book(record[0])
         elif user_input == "2":
-            print("Return a book")
+            return_book(record[0])
         elif user_input == "3" and role != "Reader":
             print("Add a book")
         elif user_input == "4" and role != "Reader":
@@ -76,7 +76,7 @@ def rent_book(user_id):
     book_ids = []
 
     while True:
-        print()
+        print("\nBooks available to rent:\n")
 
         for book in books:
             book_ids.append(book[0])
@@ -86,6 +86,28 @@ def rent_book(user_id):
             book_input = int(input("\nEnter the number of the book: "))
             if book_input in book_ids:
                 crete_new_rent(user_id, book_input)
+                break
+            else:
+                print("Invalid input! Try again")
+        except ValueError:
+            print("Invalid input! Try again")
+
+
+def return_book(user_id):
+    user_books = get_user_books(user_id)
+    book_ids = []
+
+    while True:
+        print("\nYour rented books:\n")
+
+        for book in user_books:
+            book_ids.append(book[0])
+            print(f"{book[0]} - {book[1]}")
+
+        try:
+            book_input = int(input("\nEnter the number of the book: "))
+            if book_input in book_ids:
+                finish_rent(user_id, book_input)
                 break
             else:
                 print("Invalid input! Try again")
