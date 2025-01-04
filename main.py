@@ -45,6 +45,8 @@ def menu(options, record):
             add_user()
         elif user_input == "6" and role == "Admin":
             remove_user(active_user_id)
+        elif user_input == "7" and role == "Admin":
+            reset_db()
         elif user_input == "9":
             exit()
         else:
@@ -62,7 +64,7 @@ def get_main_menu_options(role):
             options.append(opt)
 
     if role == "Admin":
-        for opt in ["5 - Add a user", "6 - Remove a user"]:
+        for opt in ["5 - Add a user", "6 - Remove a user", "7 - Reset Database"]:
             options.append(opt)
 
     options.append("9 - Exit")
@@ -217,6 +219,21 @@ def remove_user(active_user_id):
 
         except ValueError:
             print("Invalid input! Try again")
+
+
+def reset_db():
+    """Resets the database with the initial values."""
+
+    print("This options resets the whole database to its initial state.")
+    print("All of the changes would be lost, with no way to recover them!")
+    decision = input("Would you like to proceed? (y/n): ")
+
+    if decision == "y":
+        create_db.main()
+        print("Database reset successfully!")
+    else:
+        print("Aborting!")
+        return
 
 
 if __name__ == "__main__":
