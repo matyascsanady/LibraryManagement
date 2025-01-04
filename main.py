@@ -77,17 +77,16 @@ def rent_book(user_id):
         print("No books available to rent!")
         return
 
-    book_ids = []
+    book_ids = [ book[0] for book in books ]
 
     while True:
         print("\nBooks available to rent:\n")
 
         for book in books:
-            book_ids.append(book[0])
             print(f"{book[0]} - {book[1]}")
 
         try:
-            book_input = int(input("\nEnter the number of the book: "))
+            book_input = int(input("\nEnter the ID of the book: "))
             if book_input in book_ids:
                 crete_new_rent(user_id, book_input)
                 break
@@ -171,13 +170,11 @@ def remove_book():
         selected_id = input("\nID of book to remove: ")
         try:
             selected_id = int(selected_id)
-            if selected_id not in book_ids:
+            if selected_id in book_ids:
+                delete_book_by_id(selected_id)
+                break
+            else:
                 print("Invalid input! Try again")
-                continue
-
-            delete_book_by_id(selected_id)
-            break
-
         except ValueError:
             print("Invalid input! Try again")
 
