@@ -14,13 +14,10 @@ def main():
 
     display_welcome()
 
-    while True:
-        result, record = login()
-        if result:
-            break
+    user = login()
 
-    options = get_main_menu_options(record[3])
-    menu(options, record)
+    options = get_main_menu_options(user[3])
+    menu(options, user)
 
 
 def display_welcome():

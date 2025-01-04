@@ -7,32 +7,32 @@ import sqlite3
 def login():
     """Handles user login by finding a record that matches the given username and password."""
 
-    user_name = input("Username: ")
-    password = input("Password: ")
+    while True:
+        user_name = input("Username: ")
+        password = input("Password: ")
 
-    try:
-        connection_obj = sqlite3.connect("db/library.db")
-        cursor_obj = connection_obj.cursor()
+        try:
+            connection_obj = sqlite3.connect("db/library.db")
+            cursor_obj = connection_obj.cursor()
 
-        query = """
-        SELECT * FROM USERS
-        WHERE User_Name = ? AND Password = ?
-        """
+            query = """
+            SELECT * FROM USERS
+            WHERE User_Name = ? AND Password = ?
+            """
 
-        cursor_obj.execute(query, (user_name, password))
-        result = cursor_obj.fetchone()
+            cursor_obj.execute(query, (user_name, password))
+            result = cursor_obj.fetchone()
 
-        if result:
-            print(f"\nLogin successful! Welcome, {user_name} (Role: {result[3]})!")
-            connection_obj.close()
-            return True, result
+            if result:
+                print(f"\nLogin successful! Welcome, {user_name} (Role: {result[3]})!")
+                connection_obj.close()
+                return result
 
-        else:
-            print("Invalid username or password. Please try again.")
+            else:
+                print("Invalid username or password. Please try again.\n")
+                continue
 
-        connection_obj.close()
-
-    except sqlite3.Error as e:
-        print("Database error:", e)
-    except Exception as e:
-        print("An unexpected error occurred:", e)
+        except sqlite3.Error as e:
+            print("Database error:", e)
+        except Exception as e:
+            print("An unexpected error occurred:", e)
