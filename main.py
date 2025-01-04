@@ -1,8 +1,8 @@
 import os
 import create_db
 from login_handler import login
-from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent, create_book
-from read_db import get_available_books, get_user_books
+from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent, create_book, delete_book_by_id
+from read_db import get_available_books, get_user_books, get_all_books
 
 
 def main():
@@ -160,7 +160,24 @@ def add_book():
 
 
 def remove_book():
-    pass
+    books = get_all_books()
+    book_ids = [book[0] for book in books]
+
+    while True:
+        for book in books:
+            print(f"{book[0]} - {book[1]}")
+
+        selected_id = input("\nID of book to remove: ")
+        try:
+            selected_id = int(selected_id)
+            if selected_id not in book_ids:
+                print("Invalid input! Try again")
+
+            delete_book_by_id(selected_id)
+            break
+
+        except ValueError:
+            print("Invalid input! Try again")
 
 
 # Admin options

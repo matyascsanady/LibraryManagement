@@ -37,6 +37,7 @@ def get_available_books():
 
     return results
 
+
 def get_user_books(user_id):
     """Returns the books that the user currently rents."""
     connection = create_connection()
@@ -54,3 +55,12 @@ def get_user_books(user_id):
 
     return results
 
+
+def get_all_books():
+    """Returns every book in the library."""
+    connection = create_connection()
+
+    results = execute_query(connection, "SELECT * FROM BOOKS;")
+    connection.close()
+
+    return results

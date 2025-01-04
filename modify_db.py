@@ -72,3 +72,13 @@ def create_book(name, author, pages, release_year, language):
 
     connection.close()
     print(f"Book '{name}' created successfully.")
+
+
+def delete_book_by_id(book_id):
+    """Deletes the record in books where book_id matches."""
+
+    connection = create_connection()
+    delete_query = "DELETE FROM BOOKS WHERE Book_ID = ?"
+    execute_query(connection, delete_query, (book_id,))
+    connection.close()
+    print(f"Book '{book_id}' deleted successfully.")
