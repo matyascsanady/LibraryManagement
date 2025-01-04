@@ -124,7 +124,7 @@ def statistics(user_id, role):
          elif user_input == "8" and role != "Reader":
              most_books()
          elif user_input == "9" and role != "Reader":
-             pass
+             avg_book_num_per_user()
          elif user_input == "10" and role != "Reader":
              pass
          elif user_input == "11" and role != "Reader":
@@ -150,7 +150,7 @@ def get_statistics_options(role):
                     "6 - Min page number",
                     "7 - Most active reader",
                     "8 - Highest amount of the same books",
-                    "9 - Average number of books per user",
+                    "9 - Average number of books currently rented per user",
                     "10 - Average book quality",
                     "11 - List every rent by a user"]:
             options.append(opt)
@@ -299,6 +299,21 @@ def most_books():
     for book in highest_amount_books:
         print(f"\"{book}\" has {max_copies} copies in the library")
 
+    input("\nPress Enter to continue...")
+
+
+def avg_book_num_per_user():
+    """Shows the user the average number of books rented per user in the library."""
+
+    users = get_users()
+    user_ids = [user[0] for user in users]
+
+    books_read_by_users = 0
+    for user_id in user_ids:
+        books_read_by_users += len(get_user_books(user_id))
+
+
+    print(f"The average number of books rented per user is {round(books_read_by_users / len(user_ids), 2)}")
     input("\nPress Enter to continue...")
 
 
