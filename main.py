@@ -71,8 +71,11 @@ def get_main_menu_options(role):
 
 # Reader options
 def rent_book(user_id):
-
     books = get_available_books()
+    if not books:
+        print("No books available to rent!")
+        return
+
     book_ids = []
 
     while True:
@@ -95,6 +98,10 @@ def rent_book(user_id):
 
 def return_book(user_id):
     user_books = get_user_books(user_id)
+    if not user_books:
+        print("No books available to return!")
+        return
+
     book_ids = []
 
     while True:
