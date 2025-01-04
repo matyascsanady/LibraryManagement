@@ -23,7 +23,7 @@ def login():
         if result:
             print(f"\nLogin successful! Welcome, {user_name} (Role: {result[3]})!")
             connection_obj.close()
-            return True, result[3]
+            return True, result
 
         else:
             print("Invalid username or password. Please try again.")

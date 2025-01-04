@@ -1,7 +1,8 @@
 import os
-from login_handler import login
-from modify_db import create_new_user, delete_user
 import create_db
+from login_handler import login
+from modify_db import create_new_user, delete_user, crete_new_rent
+from read_db import get_available_books
 
 
 def main():
@@ -12,15 +13,17 @@ def main():
         print("Database created successfully!")
 
     while True:
-        result, role = login()
+        result, record = login()
         if result:
             break
 
-    options = get_main_menu_options(role)
-    menu(options, role)
+    options = get_main_menu_options(record[3])
+    menu(options, record)
 
 
-def menu(options, role):
+def menu(options, record):
+
+    role = record[3]
 
     while True:
         print()
@@ -30,7 +33,7 @@ def menu(options, role):
         user_input = input("\nEnter your choice: ")
 
         if user_input == "1":
-            print("Rent a book")
+            rent_book(record[0])
         elif user_input == "2":
             print("Return a book")
         elif user_input == "3" and role != "Reader":
@@ -64,6 +67,30 @@ def get_main_menu_options(role):
     options.append("9 - Exit")
 
     return options
+
+
+# Reader options
+def rent_book(user_id):
+
+    books = get_available_books()
+    book_ids = []
+
+    while True:
+        print()
+
+        for book in books:
+            book_ids.append(book[0])
+            print(f"{book[0]} - {book[1]}")
+
+        try:
+            book_input = int(input("\nEnter the number of the book: "))
+            if book_input in book_ids:
+                crete_new_rent(user_id, book_input)
+                break
+            else:
+                print("Invalid input! Try again")
+        except ValueError:
+            print("Invalid input! Try again")
 
 
 # Admin options

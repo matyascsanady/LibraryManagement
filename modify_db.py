@@ -26,9 +26,19 @@ def create_new_user(user_name, password, role):
 
 
 def delete_user(user_name):
-    """Deletes a user from the USERS table by user name."""
+    """Deletes a user from the USERS table by username."""
     connection = create_connection()
     delete_query = "DELETE FROM USERS WHERE User_Name = ?"
     execute_query(connection, delete_query, (user_name,))
     connection.close()
     print(f"User '{user_name}' deleted successfully.")
+
+
+def crete_new_rent(user_id, book_id):
+    """Adds a new rent to the rents table."""
+
+    connection = create_connection()
+    insert_query = "INSERT INTO RENTS (Reader_ID, Book_ID) VALUES (?, ?)"
+    execute_query(connection, insert_query, (user_id, book_id))
+    connection.close()
+    print(f"Rent for '{book_id}' created successfully.")
