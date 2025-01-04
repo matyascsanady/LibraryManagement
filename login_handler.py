@@ -5,6 +5,8 @@ import sqlite3
 
 
 def login():
+    """Handles user login by finding a record that matches the given username and password."""
+
     user_name = input("Username: ")
     password = input("Password: ")
 
