@@ -1,7 +1,7 @@
 """I know that storing the hash of the password would be more elegant.
 But for now this would suffice."""
 
-import sqlite3
+from common_db import *
 
 
 def login():
@@ -12,21 +12,18 @@ def login():
         password = input("Password: ")
 
         try:
-            connection_obj = sqlite3.connect("db/library.db")
-            cursor_obj = connection_obj.cursor()
+            connection_obj = create_connection()
 
             query = """
             SELECT * FROM USERS
             WHERE User_Name = ? AND Password = ?
             """
 
-            cursor_obj.execute(query, (user_name, password))
-            result = cursor_obj.fetchone()
-
+            result = execute_query(connection_obj, query, (user_name, password))
             if result:
-                print(f"\nLogin successful! Welcome, {user_name} (Role: {result[3]})!")
+                print(f"\nLogin successful! Welcome, {user_name} (Role: {result[0][3]})!")
                 connection_obj.close()
-                return result
+                return result[0]
 
             else:
                 print("Invalid username or password. Please try again.\n")
