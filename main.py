@@ -5,6 +5,7 @@ from read_db import *
 
 
 def main():
+    """Main entry point to the LibraryManagement software"""
 
     if not os.path.exists("db/library.db"):
         print("Database not found. Creating the database...")
@@ -21,6 +22,7 @@ def main():
 
 
 def menu(options, record):
+    """Main menu of the software. Options are based on user roles."""
 
     active_user_id = record[0]
     role = record[3]
@@ -53,6 +55,8 @@ def menu(options, record):
 
 
 def get_main_menu_options(role):
+    """Defines the options based on the user role."""
+
     options = [
         "1 - Rent a book",
         "2 - Return a book"
@@ -73,6 +77,10 @@ def get_main_menu_options(role):
 
 # Reader options
 def rent_book(user_id):
+    """ Lists all the books availabe to rent.
+    Creates a record in the RENTS table based on the User_ID and Book_ID.
+    Validates user inputs."""
+
     books = get_available_books()
     if not books:
         print("No books available to rent!")
@@ -98,6 +106,10 @@ def rent_book(user_id):
 
 
 def return_book(user_id):
+    """Lists all the books available to return.
+    Sets the return date of the specific rent record in the RENTS table to the current date.
+    Validates user input."""
+
     user_books = get_user_books(user_id)
     if not user_books:
         print("No books available to return!")
@@ -125,6 +137,7 @@ def return_book(user_id):
 
 # Librarian options
 def add_book():
+    """Creates a record in the BOOKS table based on the user input. Validates the input."""
 
     while True:
         name = input("Name: ")
@@ -161,6 +174,10 @@ def add_book():
 
 
 def remove_book():
+    """Lists all the books in the library.
+    Removes the record that matches the ID given by the user.
+    Validates input."""
+
     books = get_all_books()
     book_ids = [book[0] for book in books]
 
@@ -182,6 +199,9 @@ def remove_book():
 
 # Admin options
 def add_user():
+    """Creates a new record in the USERS table based on the user input.
+    Validates the inputs."""
+
     user_name = input("\nUsername: ")
     password = input("Password: ")
     role = input("Role: ")
@@ -194,6 +214,8 @@ def add_user():
 
 
 def remove_user(active_user_id):
+    """Deletes a record in the USERS table that matches the given user id. Validates input."""
+
     users = get_users()
     user_ids = [user[0] for user in users]
 
