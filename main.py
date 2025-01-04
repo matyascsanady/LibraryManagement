@@ -12,6 +12,8 @@ def main():
         create_db.main()
         print("Database created successfully!")
 
+    display_welcome()
+
     while True:
         result, record = login()
         if result:
@@ -19,6 +21,13 @@ def main():
 
     options = get_main_menu_options(record[3])
     menu(options, record)
+
+
+def display_welcome():
+    """Greets the user."""
+
+    print("\nWelcome to the LibraryManagement software!")
+    print("To use the software you have to login first. Please do so below.\n\n")
 
 
 def menu(options, record):
