@@ -170,6 +170,7 @@ def current_user_rented_books(user_id):
     books = get_user_books(user_id)
     if not books:
         print("You don't rent any books!")
+        input("\nPress Enter to continue...")
         return
 
     print("\nYour currently rented books:\n")
@@ -185,6 +186,7 @@ def current_user_read_books(user_id):
     books = set(get_user_read_books(user_id))
     if not books:
         print("You have not read any books! Try renting some!")
+        input("\nPress Enter to continue...")
         return
 
     print("\nYour read books:\n")
@@ -200,6 +202,7 @@ def number_of_books():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
         return
 
     num = len(books)
@@ -214,6 +217,7 @@ def average_page_num():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
         return
 
     pages = 0
@@ -231,6 +235,7 @@ def max_page_num():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
         return
 
     pages = [int(book[3]) for book in books if book[3]]
@@ -245,6 +250,7 @@ def min_page_num():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
         return
 
     pages = [int(book[3]) for book in books if book[3]]
@@ -287,6 +293,7 @@ def most_books():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
         return
 
     results = {}
@@ -325,6 +332,9 @@ def avg_book_qual():
     """Show the user that average book quality in the library."""
 
     books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        input("\nPress Enter to continue...")
 
     sum_quality = 0
     valid_book_num = 0
@@ -375,6 +385,7 @@ def books_released_in_year():
     books = get_all_books()
     if not books:
         print("There are no books in the library.")
+        input("\nPress Enter to continue...")
 
     while True:
         try:
@@ -398,6 +409,9 @@ def books_written_in_language():
     """Lists the books that were written in the given language."""
 
     books = get_all_books()
+    if not books:
+        print("There are no books in the library.")
+        input("\nPress Enter to continue...")
 
     results = {
         "magyar": [],
