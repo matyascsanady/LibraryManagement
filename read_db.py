@@ -39,6 +39,25 @@ def get_user_books(user_id):
     return results
 
 
+def get_user_read_books(user_id):
+    """Returns the books that the user has read (rented) before."""
+
+    connection = create_connection()
+
+    query = """
+        SELECT BOOKS.*
+        FROM BOOKS
+        INNER JOIN RENTS ON BOOKS.Book_ID = RENTS.Book_ID
+        WHERE RENTS.Reader_ID = ?
+        AND RENTS.Return_Date IS NOT NULL;
+    """
+
+    results = execute_query(connection, query, (user_id,))
+    connection.close()
+
+    return results
+
+
 def get_all_books():
     """Returns every book in the library."""
     connection = create_connection()

@@ -48,7 +48,7 @@ def menu(options, record):
         user_input = input("\nEnter your choice: ")
 
         if user_input == "0":
-            statistics(role)
+            statistics(active_user_id, role)
         elif user_input == "1":
             rent_book(active_user_id)
         elif user_input == "2":
@@ -92,6 +92,47 @@ def get_main_menu_options(role):
     return options
 
 
+# Statistics
+def statistics(user_id, role):
+     """Statistics option."""
+
+     options = get_statistics_options(role)
+
+     while True:
+         print()
+         for option in options:
+             print(option)
+
+         user_input = input("\nEnter your choice: ")
+
+         if user_input == "1":
+             current_user_rented_books(user_id)
+         elif user_input == "2":
+             current_user_read_books(user_id)
+         elif user_input == "3" and role != "Reader":
+             pass
+         elif user_input == "4" and role != "Reader":
+             pass
+         elif user_input == "5" and role != "Reader":
+             pass
+         elif user_input == "6" and role != "Reader":
+             pass
+         elif user_input == "7" and role != "Reader":
+             pass
+         elif user_input == "8" and role != "Reader":
+             pass
+         elif user_input == "9" and role != "Reader":
+             pass
+         elif user_input == "10" and role != "Reader":
+             pass
+         elif user_input == "11" and role != "Reader":
+             pass
+         elif user_input == "99":
+             return
+         else:
+             print("Invalid input! Try again")
+
+
 def get_statistics_options(role):
     """Defines the options for the statistics menu based on the user role."""
 
@@ -117,44 +158,34 @@ def get_statistics_options(role):
     return options
 
 
-def statistics(role):
-     """Statistics option."""
+def current_user_rented_books(user_id):
+    """Shows the user the books they currently rent."""
 
-     options = get_statistics_options(role)
+    books = get_user_books(user_id)
+    if not books:
+        print("You don't rent any books!")
+        return
 
-     while True:
-         print()
-         for option in options:
-             print(option)
+    print()
+    for book in books:
+        print(f"{book[0]} - {book[1]}")
 
-         user_input = input("\nEnter your choice: ")
+    input("\nPress Enter to continue...")
 
-         if user_input == "1":
-             pass
-         elif user_input == "2":
-             pass
-         elif user_input == "3" and role != "Reader":
-             pass
-         elif user_input == "4" and role != "Reader":
-             pass
-         elif user_input == "5" and role != "Reader":
-             pass
-         elif user_input == "6" and role != "Reader":
-             pass
-         elif user_input == "7" and role != "Reader":
-             pass
-         elif user_input == "8" and role != "Reader":
-             pass
-         elif user_input == "9" and role != "Reader":
-             pass
-         elif user_input == "10" and role != "Reader":
-             pass
-         elif user_input == "11" and role != "Reader":
-             pass
-         elif user_input == "99":
-             return
-         else:
-             print("Invalid input! Try again")
+
+def current_user_read_books(user_id):
+    """Shows the user the books they have read (rented) before."""
+
+    books = set(get_user_read_books(user_id))
+    if not books:
+        print("You have not read any books! Try renting some!")
+        return
+
+    print()
+    for book in books:
+        print(f"{book[0]} - {book[1]}")
+
+    input("\nPress Enter to continue...")
 
 
 # Reader options
