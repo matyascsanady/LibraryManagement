@@ -64,3 +64,13 @@ def get_all_books():
     connection.close()
 
     return results
+
+
+def get_users():
+    """Returns all the users in the library."""
+    connection = create_connection()
+
+    results = execute_query(connection, "SELECT * FROM USERS;")
+    connection.close()
+
+    return results

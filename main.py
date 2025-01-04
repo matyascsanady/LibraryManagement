@@ -1,8 +1,8 @@
 import os
 import create_db
 from login_handler import login
-from modify_db import create_new_user, delete_user, crete_new_rent, finish_rent, create_book, delete_book_by_id
-from read_db import get_available_books, get_user_books, get_all_books
+from modify_db import *
+from read_db import *
 
 
 def main():
@@ -23,6 +23,7 @@ def main():
 
 def menu(options, record):
 
+    active_user_id = record[0]
     role = record[3]
 
     while True:
@@ -33,9 +34,9 @@ def menu(options, record):
         user_input = input("\nEnter your choice: ")
 
         if user_input == "1":
-            rent_book(record[0])
+            rent_book(active_user_id)
         elif user_input == "2":
-            return_book(record[0])
+            return_book(active_user_id)
         elif user_input == "3" and role != "Reader":
             add_book()
         elif user_input == "4" and role != "Reader":
@@ -43,7 +44,7 @@ def menu(options, record):
         elif user_input == "5" and role == "Admin":
             add_user()
         elif user_input == "6" and role == "Admin":
-            remove_user()
+            remove_user(active_user_id)
         elif user_input == "9":
             exit()
         else:
@@ -172,6 +173,7 @@ def remove_book():
             selected_id = int(selected_id)
             if selected_id not in book_ids:
                 print("Invalid input! Try again")
+                continue
 
             delete_book_by_id(selected_id)
             break
@@ -193,12 +195,31 @@ def add_user():
     print(f"New user ({user_name}) created successfully!")
 
 
-def remove_user():
-    user_name = input("\nUsername: ")
+def remove_user(active_user_id):
+    users = get_users()
+    user_ids = [user[0] for user in users]
 
-    delete_user(user_name)
+    while True:
+        for user in users:
+            print(f"{user[0]} - {user[1]}")
 
-    print(f"User ({user_name}) deleted successfully!")
+        user_id = input("\nID of user to delete: ")
+
+        try:
+            user_id = int(user_id)
+            if user_id not in user_ids:
+                print("Invalid input! Try again")
+                continue
+
+            if user_id == active_user_id:
+                print("Unable to delete the current user! You may use another admin account to delete this one.")
+                continue
+
+            delete_user(user_id)
+            break
+
+        except ValueError:
+            print("Invalid input! Try again")
 
 
 if __name__ == "__main__":

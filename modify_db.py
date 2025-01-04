@@ -25,13 +25,13 @@ def create_new_user(user_name, password, role):
     print(f"User '{user_name}' added successfully.")
 
 
-def delete_user(user_name):
-    """Deletes a user from the USERS table by username."""
+def delete_user(user_id):
+    """Deletes a user from the USERS table by User_ID."""
     connection = create_connection()
-    delete_query = "DELETE FROM USERS WHERE User_Name = ?"
-    execute_query(connection, delete_query, (user_name,))
+    delete_query = "DELETE FROM USERS WHERE User_ID = ?"
+    execute_query(connection, delete_query, (user_id,))
     connection.close()
-    print(f"User '{user_name}' deleted successfully.")
+    print(f"User '{user_id}' deleted successfully.")
 
 
 def crete_new_rent(user_id, book_id):
