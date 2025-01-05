@@ -20,6 +20,7 @@ def main():
     menu(options, user)
 
 
+# region Messages
 def display_welcome():
     """Greets the user."""
 
@@ -32,8 +33,10 @@ def display_goodbye():
 
     print("\nThank you for using LibraryManagement software!")
     print("Hope you found all the books you wanted. Hope to see you soon.")
+# endregion
 
 
+# region Main Menu
 def menu(options, record):
     """Main menu of the software. Options are based on user roles."""
 
@@ -90,9 +93,10 @@ def get_main_menu_options(role):
     options.append("9 - Exit")
 
     return options
+# endregion
 
 
-# Statistics
+# region Statistics
 def statistics(user_id, role):
      """Statistics option."""
 
@@ -442,9 +446,10 @@ def books_written_in_language():
             break
 
     input("\nPress Enter to continue...")
+# endregion
 
 
-# Reader options
+# region Reader options
 def rent_book(user_id):
     """ Lists all the books availabe to rent.
     Creates a record in the RENTS table based on the User_ID and Book_ID.
@@ -502,9 +507,10 @@ def return_book(user_id):
                 print("Invalid input! Try again")
         except ValueError:
             print("Invalid input! Try again")
+# endregion
 
 
-# Librarian options
+# region Librarian options
 def add_book():
     """Creates a record in the BOOKS table based on the user input. Validates the input."""
 
@@ -569,9 +575,10 @@ def remove_book():
                 print("Invalid input! Try again")
         except ValueError:
             print("Invalid input! Try again")
+# endregion
 
 
-# Admin options
+# region Admin options
 def add_user():
     """Creates a new record in the USERS table based on the user input.
     Validates the inputs."""
@@ -629,6 +636,7 @@ def reset_db():
     else:
         print("Aborting!")
         return
+# endregion
 
 
 if __name__ == "__main__":
