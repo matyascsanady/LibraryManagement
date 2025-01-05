@@ -26,9 +26,9 @@ def create_users_table(connection):
 
     # Initial users
     init_users = [
-        ("Manager", "Manager123", "Admin"),
-        ("AssistantLibrarian", "AssistLib456", "Librarian"),
-        ("GuestUser", "Welcome789", "Reader"),
+        ("Admin", "123", "Admin"),
+        ("Librarian", "123", "Librarian"),
+        ("Reader", "123", "Reader"),
         ("JohnDoe", "secure123", "Reader"),
         ("JaneSmith", "pass456", "Librarian"),
         ("csana", "123", "Admin"),
